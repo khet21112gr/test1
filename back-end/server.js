@@ -3,6 +3,9 @@ import cors from "cors";
 import dotenv from "dotenv";
 import userRoutes from "./router/auth.routes.js";
 import infoRoutes from "./router/info.routes.js"
+import adminRoutes from "./router/admin.routes.js"
+import meetingRoutes from "./router/meeting.routes"
+
 dotenv.config();
 
 const app = express();
@@ -14,9 +17,9 @@ app.use(express.json());
 // import routes
 
 app.use("/api/auth", userRoutes);
-app.use("/api/info",  infoRoutes)
-
-
+app.use("/api/info", infoRoutes)
+app.use('/api', adminRoutes)
+app.use('api/meeting',meetingRoutes)
 // error handler
 app.use((err, req, res, next) => {
   console.error("[SERVER ERROR]", err);

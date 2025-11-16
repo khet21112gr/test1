@@ -4,7 +4,7 @@ import axios from "axios"
 
 const isSignUp = ref(false)
 
-const email = ref("")
+const username = ref("")
 const password = ref("")
 const comfirmPassword = ref("")
 
@@ -19,7 +19,7 @@ const setSuccess = ref(false)
 const handleToggle = () => {
     isSignUp.value = !isSignUp.value
     role.value = ""
-    email.value = ""
+    username.value = ""
     password.value = ""
     comfirmPassword.value = ""
     error.value = ""
@@ -38,7 +38,7 @@ const handleSubmit = async () => {
 
     // REGISTER
     if (isSignUp.value) {
-        if (!email.value.trim() || !password.value.trim() || !comfirmPassword.value.trim() || !role.value.trim()) {
+        if (!username.value.trim() || !password.value.trim() || !comfirmPassword.value.trim() || !role.value.trim()) {
             error.value = "missing input"
             setError.value = true
             clearError()
@@ -59,7 +59,7 @@ const handleSubmit = async () => {
         }
         try {
             const res = await axios.post("http://localhost:5000/api/auth/register", {
-                email: email.value,
+                username: username.value,
                 password: password.value,
                 role: role.value
             })
@@ -83,7 +83,7 @@ const handleSubmit = async () => {
 
     // LOGIN
     if (!isSignUp.value) {
-        if (!email.value.trim() || !password.value.trim()) {
+        if (!username.value.trim() || !password.value.trim()) {
             error.value = "missing input"
             setError.value = true
             clearError()
@@ -92,7 +92,7 @@ const handleSubmit = async () => {
 
         try {
             const res = await axios.post("http://localhost:5000/api/auth/login", {
-                email: email.value,
+                username: username.value,
                 password: password.value
             })
             console.log(res)
@@ -103,9 +103,14 @@ const handleSubmit = async () => {
                 return
             }
 
-            // save JWT token
-            localStorage.setItem("token", res.data.token)
-            navigateTo('/main')
+
+
+            if (res.data.role == "Moderator") {
+                localStorage.setItem("token", res.data.token)
+                console.log(res.data.role)
+                navigateTo('/modemain')
+            }
+
 
         } catch (error) {
             error.value = "network error"
@@ -129,8 +134,9 @@ const handleSubmit = async () => {
             }"> {{ role }}</p>
 
             <div>
-                <label class="block font-mono text-gray-400">email </label>
-                <input v-model="email" type="email" class="border-2 rounded font-mono focus:bg-blue-200 p-1 "> </input>
+                <label class="block font-mono text-gray-400">username </label>
+                <input v-model="username" type="username" class="border-2 rounded font-mono focus:bg-blue-200 p-1 ">
+                </input>
             </div>
             <div>
                 <label class="block font-mono text-gray-400">password </label>
