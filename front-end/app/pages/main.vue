@@ -64,6 +64,7 @@ onMounted(async () => {
       </div>
 
       <div class="mt-4">
+        {{ userRole }}
         <h2 class="font-bold text-xl mb-2">Your Meetings:</h2>
         <div v-if="loading">Loading...</div>
         <div v-if="error" class="text-red-600">{{ error }}</div>
@@ -71,6 +72,7 @@ onMounted(async () => {
           <li v-for="m in meetings" :key="m.id">
             {{ m.title }} - {{ m.date }}
           </li>
+          
         </ul>
         <div v-else-if="!loading">No meetings found.</div>
       </div>
