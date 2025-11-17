@@ -1,10 +1,10 @@
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
-import userRoutes from "./router/auth.routes.js";
-import infoRoutes from "./router/info.routes.js"
+import userAuthRoutes from "./router/auth.routes.js";
+import userRoutes from "./router/user.routes.js"
 import adminRoutes from "./router/admin.routes.js"
-import meetingRoutes from "./router/meeting.routes"
+import meetingRoutes from "./router/meeting.routes.js"
 
 dotenv.config();
 
@@ -16,8 +16,8 @@ app.use(express.json());
 
 // import routes
 
-app.use("/api/auth", userRoutes);
-app.use("/api/info", infoRoutes)
+app.use("/api/auth", userAuthRoutes);
+app.use("/api/info", userRoutes)
 app.use('/api', adminRoutes)
 app.use('api/meeting',meetingRoutes)
 // error handler

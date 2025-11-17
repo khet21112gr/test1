@@ -1,9 +1,9 @@
 services:
   db:
     image: mariadb:11
-    container_name: db
+    container_name: dbserver
     ports:
-      - "3306:3306"
+      - "3307:3307"
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: mydb

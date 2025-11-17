@@ -4,5 +4,5 @@ import { createMeeting } from "../controllers/create.meeting.controller.js";
 
 const router = Router()
 
-router.psot('/create' , verifyToken ,createMeeting )
+router.post('/create' , verifyToken ,createMeeting )
 export default router;
